@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "BD/conexion.php";
 
 // Verificar si el docente ha iniciado sesión
@@ -56,6 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap-5.3.3-dist/css/bootstrap.min.css">
+    <link rel="icon" type="image/png" href="img/faviconMDD.png"/>
     <title>Panel Docente</title>
 </head>
 
@@ -98,10 +100,67 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         <?php endif; ?>
 
+
+        <?php 
+        $sql = "SELECT 
+                Tutorias.Fecha, 
+                Tutorias.Hora_inicio, 
+                Tutorias.Hora_fin, 
+                Tutorias.Tema, 
+                Tutorias.Materia, 
+                Estudiantes.Id_Estudiante, 
+                Estudiantes.Nombre, 
+                Estudiantes.Apellido
+                FROM 
+                Tutorias
+                JOIN 
+                Estudiantes ON Tutorias.Id_Estudiante = Estudiantes.Id_Estudiante
+                WHERE 
+                Tutorias.Id_Docente = ?;";
+
+        $stmt = $datosConexion->prepare($sql);
+        $stmt->bind_param("i", $id_docente);
+        $stmt->execute();
+        $result = $stmt->get_result();
+?>
+    
+
+        <h1 class="text-center">Tutorías Asignadas</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Hora Inicio</th>
+                    <th>Hora Fin</th>
+                    <th>Tema</th>
+                    <th>Materia</th>
+                    <th>ID Estudiante</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while ($row = $result->fetch_assoc()): ?>
+                    <tr>
+                    <td><?php echo htmlspecialchars($row['Fecha']); ?></td>
+                        <td><?php echo htmlspecialchars($row['Hora_inicio']); ?></td>
+                        <td><?php echo htmlspecialchars($row['Hora_fin']); ?></td>
+                        <td><?php echo htmlspecialchars($row['Tema']); ?></td>
+                        <td><?php echo htmlspecialchars($row['Materia']); ?></td>
+                        <td><?php echo htmlspecialchars($row['Id_Estudiante']); ?></td>
+                        <td><?php echo htmlspecialchars($row['Nombre']); ?></td>
+                        <td><?php echo htmlspecialchars($row['Apellido']); ?></td>
+                    </tr>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
+    </div>
+
         <div class="text-center mt-4">
             <a href="Logout.php" class="btn btn-danger">Cerrar Sesión</a>
         </div>
     </div>
+    
 
     <!-- Bootstrap JavaScript Libraries -->
     <script src="bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>

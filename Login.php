@@ -1,4 +1,5 @@
 <?php
+session_start(); 
 include 'BD/conexion.php';
 
 // Inicializar la variable para evitar errores de referencia antes del HTML
@@ -8,43 +9,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Validar si el usuario es Estudiante
-    $sql = "SELECT * FROM Estudiantes WHERE Email = ? AND Contraseña = ?";
-    $stmt = $datosConexion->prepare($sql);
-    $stmt->bind_param("ss", $email, $password);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    // Definir una consulta reutilizable
+    $roles = [
+        'Estudiantes' => ['id_session' => 'id_estudiante', 'redirect' => 'panel_estudiante.php'],
+        'Docentes' => ['id_session' => 'id_docente', 'redirect' => 'panel_docente.php'],
+        'Administrativo' => ['id_session' => 'id_administrativo', 'redirect' => 'AdminPanel.php']
+    ];
 
-    if ($result->num_rows > 0) {
-        // Redirigir al panel de estudiantes
-        header("Location: panel_estudiante.php");
-        exit();
-    }
+    foreach ($roles as $tabla => $config) {
+        $sql = "SELECT * FROM $tabla WHERE Email = ? AND Contraseña = ?";
+        $stmt = $datosConexion->prepare($sql);
+        $stmt->bind_param("ss", $email, $password);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    // Validar si el usuario es Docente
-    $sql = "SELECT * FROM Docentes WHERE Email = ? AND Contraseña = ?";
-    $stmt = $datosConexion->prepare($sql);
-    $stmt->bind_param("ss", $email, $password);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        // Redirigir al panel de docentes
-        header("Location: panel_docente.php");
-        exit();
-    }
-
-    // Validar si el usuario es Administrativo
-    $sql = "SELECT * FROM Administrativo WHERE Email = ? AND Contraseña = ?";
-    $stmt = $datosConexion->prepare($sql);
-    $stmt->bind_param("ss", $email, $password);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        // Redirigir al panel de administrativos
-        header("Location: AdminPanel.php");
-        exit();
+        if ($result->num_rows > 0) {
+            $usuario = $result->fetch_assoc();
+            $_SESSION[$config['id_session']] = $usuario["Id_" . rtrim($tabla, 's')];
+          
+            header("Location: " . $config['redirect']);
+            exit();
+        }
     }
 
     // Si no se encuentra el usuario, mostrar mensaje de error
@@ -61,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/CSS" href="CSS/styleLogin.css">
+    <link rel="icon" type="image/png" href="img/faviconMDD.png"/>
     <title>Login</title>
 </head>
 

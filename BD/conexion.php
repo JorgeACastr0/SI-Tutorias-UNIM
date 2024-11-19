@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 // Variables de conexión
 $ubicacionDB = "localhost:3307";

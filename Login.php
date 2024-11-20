@@ -49,33 +49,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="icon" type="image/png" href="img/faviconMDD.png"/>
     <title>Login</title>
     <style>
-    header {
-            background-color: #B79C6D; /* Color institucional */
-            color: white;
-            width: 100%;
-            padding: 15px;
-            text-align: center;
-        }
-        header a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        header a:hover {
-            text-decoration: underline;
-        }
+    .bg-yellow { background-color: #FFC72C; }
     </style>
 </head>
 
 <body>
-    
-   
+
+<header class="bg-yellow py-3 text-center text-dark">
+        <h1 class="display-4">Ingreso</h1>
+        <p class="lead"> <b>Inicia sesion con tu correo y contraseña </b></p>
+        <p class="lead"> <b>Si eres estudiante y aun no te haz registrado, vuelve a la pagina principal para registrarte</b></p>
+
+    </header>
 
     <main class="form-signin w-100 m-auto">
         <form method="POST">
             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3"></div>
             <img src="Img/LogoMDD.png" class="img-fluid" alt="imagen del logo universidad" href="index.php">
-            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <h1 class="h3 mb-3 fw-normal">Inicia Sesión</h1>
 
             <!-- Mensaje de error dinámico -->
             <?php if (!empty($mensaje_error)): ?>
@@ -86,23 +77,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="form-floating">
                 <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com" required>
-                <label for="floatingInput">Email address</label>
+                <label for="floatingInput">Correo electrónico</label>
             </div>
             <div class="form-floating">
                 <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" required>
-                <label for="floatingPassword">Password</label>
+                <label for="floatingPassword">Contraseña</label>
             </div>
 
             <div class="form-check text-start my-3">
                 <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">
-                    Remember me
+                    Recuerdame
                 </label>
             </div>
-            <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
-            <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
+            <button class="btn btn-primary w-100 py-2" type="submit">Ingresar</button>
+            <p class="mt-2 mb-5 text-body-secondary">&copy; 2017–2024</p>
         </form>
+
+        <div class="center-text">        
+        <button class="btn btn-secondary w-100 py-2" type="submit"><a href="index.php" style="color:#FFFFFF;"> VOLVER </a></button>
+        </div>
     </main>
+
+   
 
     <footer>
         <!-- place footer here -->

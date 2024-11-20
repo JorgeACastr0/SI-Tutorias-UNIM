@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <h3 class="card-title">Información del Docente</h3>
                     <p><strong>Nombre:</strong> <?php echo htmlspecialchars($docente['Nombre'] . ' ' . $docente['Apellido']); ?></p>
                     <p><strong>Email:</strong> <?php echo htmlspecialchars($docente['Email']); ?></p>
-                    <p><strong>Horario Actual:</strong> <?php echo htmlspecialchars($docente['Horario']); ?></p>
+                    <p><strong>Horario y Salon Actual:</strong> <?php echo htmlspecialchars($docente['Horario']); ?></p>
                 </div>
             </div>
 
@@ -93,10 +93,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <h3 class="card-title">Editar Horario</h3>
                     <form method="POST">
                         <div class="mb-3">
-                            <label for="horario" class="form-label">Nuevo Horario</label>
-                            <textarea class="form-control" name="horario" id="horario" rows="3" required><?php echo htmlspecialchars($docente['Horario']); ?></textarea>
+                            <label for="horario" class="form-label">Nuevo Horario y Salon:</label>
+                            <textarea class="form-control" name="horario" id="horario" rows="2" required><?php echo htmlspecialchars($docente['Horario']); ?></textarea>
                         </div>
-                        <button type="submit" class="btn btn-success w-100">Actualizar Horario</button>
+                        <button type="submit" class="btn btn-success w-100">Actualizar Horario y Salon</button>
                     </form>
                 </div>
             </div>

@@ -33,11 +33,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $vista == 'llenar_asistencia') {
         $stmt->bind_param("ssssiiiss", $fecha_actual, $hora_inicio, $hora_fin, $tema, $salon, $id_estudiante, $id_administrativo, $id_docente, $materia);
 
         if ($stmt->execute()) {
-            $mensaje = "Asistencia registrada exitosamente.";
-        } else {
-            $mensaje = "Error al registrar la asistencia: " . $stmt->error;
-        }
+            // Redirigir a la encuesta de satisfacción después de guardar los datos
+        header("Location: encuesta_satisfaccion.php");
+        exit(); }
+         else {
+        echo "Error al registrar la asistencia: " . $stmt->error;
     }
+}
 }
 ?>
 

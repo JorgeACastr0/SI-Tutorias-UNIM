@@ -1,0 +1,18 @@
+{
+    "name": "sda-48-239/sistema-de-informacion",
+    "description": "Paquete para exportar de php a excel",
+    "autoload": {
+        "psr-4": {
+            "Sda48239\\SistemaDeInformacion\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jorge Andres",
+            "email": "opandres123@gmail.com"
+        }
+    ],
+    "require": {
+        "phpoffice/phpspreadsheet": "^3.4"
+    }
+}

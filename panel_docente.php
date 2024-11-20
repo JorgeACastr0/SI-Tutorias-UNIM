@@ -64,7 +64,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="container mt-5">
         <h1 class="text-center">Panel Docente</h1>
-        <h1>ESTE ES EL ID DEL DOCENTE <?php echo "este si es ". htmlspecialchars($id_docente); ?></h1>
+    
+        
+    <?php
+    //ESTO SIRVE PARA MIRAR QUE VARIABLES ESTAN EN LA SESSION
+    /*var_dump($_SESSION);
+    exit();*/
+    ?>
 
         <?php if (!empty($mensaje)): ?>
             <div class="alert alert-info" role="alert">
@@ -156,6 +162,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </table>
     </div>
 
+    <div class="text-center">
+    <form action="docentes_exportar_excel.php" method="POST">
+    <button type="submit" class="btn btn-success mt-3 regular-button">Exportar a EXCEL</button>
+    </form>
+    </div>
+        
         <div class="text-center mt-4">
             <a href="Logout.php" class="btn btn-danger">Cerrar Sesión</a>
         </div>

@@ -48,14 +48,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" type="text/CSS" href="CSS/styleLogin.css">
     <link rel="icon" type="image/png" href="img/faviconMDD.png"/>
     <title>Login</title>
+    <style>
+    header {
+            background-color: #B79C6D; /* Color institucional */
+            color: white;
+            width: 100%;
+            padding: 15px;
+            text-align: center;
+        }
+        header a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        header a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
-<body class="d-flex align-items-center py-4 bg-body-tertiary">
+<body>
+    
+   
 
     <main class="form-signin w-100 m-auto">
         <form method="POST">
             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3"></div>
-            <img src="Img/LogoMDD.png" class="img-fluid" alt="imagen del logo universidad">
+            <img src="Img/LogoMDD.png" class="img-fluid" alt="imagen del logo universidad" href="index.php">
             <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
             <!-- Mensaje de error dinámico -->

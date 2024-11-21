@@ -181,7 +181,7 @@ include 'BD/conexion.php';
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="tablaDocentes">
+                    <tbody id="tablaDocentes">s
                         <?php
                         // Consulta para obtener la lista de docentes
                         $sql = "SELECT * FROM Docentes";
@@ -255,44 +255,66 @@ include 'BD/conexion.php';
     </div>
 
     <!-- Fin del Modal -->
-     
-     <!-- Modal para Confirmar Eliminación -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Eliminar Docente</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>¿Estás seguro de que deseas eliminar a este docente?</p>
-                <input type="hidden" id="deleteDocenteId">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger" id="confirmDeleteButton">Eliminar</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal para Reportes -->
-<div class="modal fade" id="reporteModal" tabindex="-1" aria-labelledby="reporteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="reporteModalLabel">Reporte del Docente</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="contenidoReporte">
-                <!-- Aquí se cargarán los datos dinámicamente -->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" onclick="imprimirReporte()">Imprimir</button>
+
+    <!-- Modal para Confirmar Eliminación -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Eliminar Docente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de que deseas eliminar a este docente?</p>
+                    <input type="hidden" id="deleteDocenteId">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteButton">Eliminar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <!-- Modal para Reportes -->
+    <div class="modal fade" id="reporteModal" tabindex="-1" aria-labelledby="reporteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reporteModalLabel">Reporte del Docente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="contenidoReporte">
+                    <!-- Aquí se cargarán los datos dinámicamente -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="descargarReporte()">Imprimir</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function descargarReporte() {
+            // Redirige al usuario al script de exportación
+            window.location.href = "docentes_exportar_excel.php";
+        }
+    </script>
+
+    <script>
+        function mostrarModalReportes(idDocente) {
+            // Llamada AJAX para obtener los datos del reporte
+            fetch(`obtener_reporte_docente.php?id_docente=${idDocente}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('contenidoReporte').innerHTML = data;
+                    const modal = new bootstrap.Modal(document.getElementById('reporteModal'));
+                    modal.show();
+                })
+                .catch(error => console.error('Error al cargar el reporte:', error));
+        }
+    </script>
+
 
     <script src="bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
     <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

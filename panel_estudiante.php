@@ -34,9 +34,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $vista == 'llenar_asistencia') {
 
         if ($stmt->execute()) {
             // Redirigir a la encuesta de satisfacción después de guardar los datos
-        header("Location: encuesta_satisfaccion.php");
-        exit(); }
-         else {
+            header("Location: encuesta_satisfaccion.php?id_docente=" . $id_docente);
+            exit(); }
+        else {
         echo "Error al registrar la asistencia: " . $stmt->error;
     }
 }

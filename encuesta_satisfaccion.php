@@ -1,17 +1,26 @@
 <?php
-// Aquí puedes manejar la lógica para guardar las respuestas si lo deseas
+session_start();
+
+if (!isset($_SESSION['id_estudiante'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$id_docente = $_GET['id_docente'];
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $pregunta1 = $_POST['pregunta1'];
     $pregunta2 = $_POST['pregunta2'];
     $comentarios = $_POST['comentarios'];
+    $id_estudiante = $_SESSION['id_estudiante'];
 
-    // Conectar a la base de datos
+  
     include 'BD/conexion.php';
 
-    $sql = "INSERT INTO Encuestas (Pregunta1, Pregunta2, Comentarios, Id_Estudiante)
-            VALUES (?, ?, ?, ?)";
+    $sql = "INSERT INTO Encuestas (Pregunta1, Pregunta2, Comentarios, Id_Estudiante, Id_Docente)
+            VALUES (?, ?, ?, ?, ?)";
     $stmt = $datosConexion->prepare($sql);
-    $stmt->bind_param("sssi", $pregunta1, $pregunta2, $comentarios, $_SESSION['id_estudiante']);
+    $stmt->bind_param("sssii", $pregunta1, $pregunta2, $comentarios, $id_estudiante, $id_docente);
 
     if ($stmt->execute()) {
         echo "<script>alert('Gracias por tu respuesta.');</script>";
@@ -34,6 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <body class="bg-light">
     <div class="container mt-5">
         <h1 class="text-center">Encuesta de Satisfacción</h1>
+        <p class="text-center">Calificando al docente con ID: <?php echo htmlspecialchars($id_docente); ?></p>
         <form method="POST" class="p-4 border rounded bg-white shadow-sm">
             <div class="mb-3">
                 <label for="pregunta1" class="form-label">¿Cómo calificas la tutoría?</label>
@@ -55,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </div>
             <div class="mb-3">
                 <label for="comentarios" class="form-label">Comentarios adicionales</label>
-                <textarea name="comentarios" id="comentarios" class="form-control" rows="4"></textarea>
+                <textarea name="comentarios" id="comentarios" class="form-control" rows="3"></textarea>
             </div>
             <button type="submit" class="btn btn-primary w-100">Enviar Respuesta</button>
         </form>

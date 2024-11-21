@@ -196,6 +196,7 @@ include 'BD/conexion.php';
                             echo "<td>
                                     <button class='btn btn-warning' onclick='mostrarModalEditar({$row['Id_Docente']})'>Editar</button>
                                     <button class='btn btn-danger' onclick='mostrarModalEliminar({$row['Id_Docente']})'>Eliminar</button>
+                                    <button class='btn btn-light' onclick='mostrarModalReportes({$row['Id_Docente']})'>Reporte</button>
                                   </td>";
                             echo "</tr>";
                         }
@@ -216,7 +217,7 @@ include 'BD/conexion.php';
 
 
     <!-- Modal (Ubicado aquí) -->
-    <!-- Modal -->
+    <!-- Modal Editar -->
     <div class="modal fade" id="actionModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -274,7 +275,24 @@ include 'BD/conexion.php';
         </div>
     </div>
 </div>
-
+<!-- Modal para Reportes -->
+<div class="modal fade" id="reporteModal" tabindex="-1" aria-labelledby="reporteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reporteModalLabel">Reporte del Docente</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="contenidoReporte">
+                <!-- Aquí se cargarán los datos dinámicamente -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="imprimirReporte()">Imprimir</button>
+            </div>
+        </div>
+    </div>
+</div>
 
     <script src="bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
     <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

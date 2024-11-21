@@ -86,6 +86,41 @@ function actualizarDocente(id) {
 }
 
 
+function mostrarModalReportes(idDocente) {
+  // Llamada AJAX para obtener los datos del reporte
+  fetch(`obtener_reporte_docente.php?id_docente=${idDocente}`)
+      .then(response => response.text())
+      .then(data => {
+          document.getElementById('contenidoReporte').innerHTML = data;
+          const modal = new bootstrap.Modal(document.getElementById('reporteModal'));
+          modal.show();
+      })
+      .catch(error => console.error('Error al cargar el reporte:', error));
+}
+function imprimirReporte() {
+  const contenido = document.getElementById("contenidoReporte").innerHTML;
+  const ventana = window.open("", "_blank", "width=800,height=600");
+  ventana.document.write(`
+      <html>
+          <head>
+              <title>Reporte del Docente</title>
+              <link rel="stylesheet" href="bootstrap-5.3.3-dist/css/bootstrap.min.css">
+          </head>
+          <body>
+              <h1 class="text-center">Reporte del Docente</h1>
+              ${contenido}
+              <script>
+                  window.onload = function() {
+                      window.print();
+                      window.close();
+                  }
+              </script>
+          </body>
+      </html>
+  `);
+  ventana.document.close();
+}
+
 // funcion para colapsar el menu desplegable responsive
 (function () {
   "use strict";

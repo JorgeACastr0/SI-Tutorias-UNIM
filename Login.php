@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $roles = [
         'Estudiantes' => ['id_session' => 'id_estudiante', 'redirect' => 'panel_estudiante.php'],
         'Docentes' => ['id_session' => 'id_docente', 'redirect' => 'panel_docente.php'],
-        'Administrativo' => ['id_session' => 'id_administrativo', 'redirect' => 'AdminPanel.php']
+        'Administrativo' => ['id_session' => 'id_administrativo', 'redirect' => 'panel_administrador.php']
     ];
 
     foreach ($roles as $tabla => $config) {

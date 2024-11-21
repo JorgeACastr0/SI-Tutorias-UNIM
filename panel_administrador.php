@@ -68,9 +68,10 @@ include 'BD/conexion.php';
         <div id="menu" class="content-section">
             <h2>Sección principal</h2>
             <div class="d-flex align-items-center p-3 my-3 text-white bg-purple rounded shadow-sm">
-                <img class="me-3" src="/docs/5.1/assets/brand/bootstrap-logo-white.svg" alt="" width="48" height="38">
+                <img class="img-fluid" src="Img/Mesa de trabajo 1.png" alt="imagen del logo universidad" width="48" height="38">
                 <div class="lh-1">
-                    <h1 class="h6 mb-0 text-white lh-1">Bootstrap</h1>
+                    <br>
+                    <h1 class="h6 mb-0 text-white lh-1"> Universidad Minuto de Dios</h1>
                     <small>Desde 2011</small>
                 </div>
             </div>
@@ -181,7 +182,7 @@ include 'BD/conexion.php';
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="tablaDocentes">s
+                    <tbody id="tablaDocentes">
                         <?php
                         // Consulta para obtener la lista de docentes
                         $sql = "SELECT * FROM Docentes";
@@ -204,19 +205,169 @@ include 'BD/conexion.php';
                     </tbody>
                 </table>
             </div>
+            <div class="d-flex justify-content-end mt-3">
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addDocenteModal">Agregar Docente</button>
+            </div>
+
         </div>
         <div id="estudiantes" class="content-section hidden">
             <h2>Sección de Estudiantes</h2>
-            <p>Contenido relacionado con los estudiantes.</p>
+            <div class="table-responsive">
+                <table class="table table-sm table-hover table-dark styled-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Email</th>
+                            <th>Contraseña</th>
+                            <th>Carrera</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaEstudiantes">
+                        <?php
+                        // Consulta para obtener la lista de docentes
+                        $sql = "SELECT * FROM Estudiantes";
+                        $result = mysqli_query($datosConexion, $sql);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo "<tr>";
+                            echo "<td>{$row['Id_Estudiante']}</td>";
+                            echo "<td>{$row['Nombre']}</td>";
+                            echo "<td>{$row['Apellido']}</td>";
+                            echo "<td>{$row['Email']}</td>";
+                            echo "<td>{$row['Carrera']}</td>";
+                            echo "<td>{$row['Contraseña']}</td>";
+                            echo "<td>
+                                    <button class='btn btn-warning' onclick='mostrarModalEditar({$row['Id_Estudiante']})'>Editar</button>
+                                    <button class='btn btn-danger' onclick='mostrarModalEliminar({$row['Id_Estudiante']})'>Eliminar</button>
+    
+                                  </td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
         <div id="reportes" class="content-section hidden">
             <h2>Sección de Reportes</h2>
-            <p>Contenido relacionado con los reportes.</p>
+            <div class="table-responsive">
+                <table class="table table-sm table-hover table-dark styled-table">
+                    <thead>
+                        <tr>
+                            <th>Estudiante</th>
+                            <th>Docente</th>
+                            <th>Pregunta 1</th>
+                            <th>Pregunta 2</th>
+                            <th>Comentarios</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="tablaReportes">
+                        <?php
+                        // Consulta para obtener la lista de docentes
+                        $sql = "SELECT * FROM Encuestas";
+                        $result = mysqli_query($datosConexion, $sql);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo "<tr>";
+                            echo "<td>{$row['Id_Estudiante']}</td>";
+                            echo "<td>{$row['Id_Docente']}</td>";
+                            echo "<td>{$row['Pregunta1']}</td>";
+                            echo "<td>{$row['Pregunta2']}</td>";
+                            echo "<td>{$row['Comentarios']}</td>";
+
+                            echo "</tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
 
 
     <!-- Modal (Ubicado aquí) -->
+    <!-- Modal para Agregar Docente -->
+    <div class="modal fade" id="addDocenteModal" tabindex="-1" aria-labelledby="addDocenteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addDocenteModalLabel">Agregar Nuevo Docente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addDocenteForm">
+                        <div class="mb-3">
+                            <label for="idDocente" class="form-label">ID Docente</label>
+                            <input type="number" class="form-control" id="id_docente" name="id_docente" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="apellido" class="form-label">Apellido:</label>
+                            <input type="text" class="form-control" id="apellido" name="apellido" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contraseña" class="form-label">Contraseña:</label>
+                            <input type="password" class="form-control" id="contraseña" name="contraseña" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="addDocenteButton">Agregar Docente</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    document.getElementById('addDocenteButton').addEventListener('click', function () {
+        // Obtener los valores del formulario
+        const id_docente = document.getElementById('id_docente').value;
+        const nombre = document.getElementById('nombre').value;
+        const apellido = document.getElementById('apellido').value;
+        const email = document.getElementById('email').value;
+        const contraseña = document.getElementById('contraseña').value;
+
+        // Validar que todos los campos estén completos
+        if (nombre && apellido && email && contraseña) {
+            // Enviar los datos al servidor usando AJAX
+            fetch('agregar_docente.php', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    'id_docente':id_docente,
+                    'nombre': nombre,
+                    'apellido': apellido,
+                    'email': email,
+                    'contraseña': contraseña
+                })
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data); // Mostrar mensaje de éxito o error
+                // Cerrar el modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('addDocenteModal'));
+                modal.hide();
+                // Recargar la página para mostrar el nuevo docente en la tabla
+                location.reload();
+            })
+            .catch(error => console.error('Error:', error));
+        } else {
+            alert('Por favor complete todos los campos.');
+        }
+    });
+</script>
+
+
+
     <!-- Modal Editar -->
     <div class="modal fade" id="actionModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog">

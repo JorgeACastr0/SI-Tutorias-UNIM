@@ -3,6 +3,7 @@ include 'BD/conexion.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
+<!--mysql://root:FvkygBkuTmGGsXHfokQZeESnAEktyyex@junction.proxy.rlwy.net:54126/railway-->
 
 <head>
     <meta charset="UTF-8">

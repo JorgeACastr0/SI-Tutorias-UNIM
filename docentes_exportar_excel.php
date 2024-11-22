@@ -6,12 +6,16 @@ require 'BD/conexion.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-
-if (!isset($_SESSION['id_docente'])) {
-    die("Acceso no autorizado.");
+// Validar si el ID del docente viene por sesión o por parámetro de URL
+if (isset($_GET['id'])) {
+    $idDocente = intval($_GET['id']); // Obtener el ID desde la URL
+} elseif (isset($_SESSION['id_docente'])) {
+    $idDocente = intval($_SESSION['id_docente']); // Obtener el ID desde la sesión
+} else {
+    die("Acceso denegado: No se ha especificado el docente.");
 }
 
-$idDocente = $_SESSION['id_docente'];
+//$idDocente = $_SESSION['id_docente'];
 
 // Consulta para obtener las tutorías del docente logueado
 $sql = "SELECT T.Fecha, T.Hora_inicio, T.Hora_fin, T.Tema, T.Materia, 

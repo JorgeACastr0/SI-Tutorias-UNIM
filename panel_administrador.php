@@ -246,6 +246,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </table>
         </section>
     </div>
+    <div class="text-center mt-4">
+            <a href="Logout.php" class="btn btn-danger">Cerrar Sesión</a>
+        </div>
 
     <script src="bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 </body>

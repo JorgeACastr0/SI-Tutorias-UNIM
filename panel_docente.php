@@ -131,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
     
 
-        <h1 class="text-center">Tutorías Asignadas</h1>
+        <h1 class="text-center">Tutorías Registradas</h1>
         <table class="table table-striped">
             <thead>
                 <tr>

@@ -101,8 +101,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
    
 
-    <footer>
-        <!-- place footer here -->
+    <footer class="bg-dark text-white text-center text-lg-start mt-1">
+    <div class="container p-3">
+        <!-- Sección de información -->
+        <div class="row">
+            <!-- Columna 1 -->
+            <div class="col-lg-6 col-md-5 mb-4 mb-md-1">
+                <h5 class="text-uppercase">Sobre Nosotros</h5>
+                <p>
+                    Este sistema ha sido desarrollado para optimizar la gestión académica y 
+                    las tutorías en la universidad. Nuestro objetivo es facilitar el acceso y el 
+                    seguimiento tanto para estudiantes como para docentes.
+                </p>
+            </div>
+
+            <!-- Columna 2 -->
+            <div class="col-lg-6 col-md-5 mb-4 mb-md-2">
+                <h5 class="text-uppercase">Enlaces Rápidos</h5>
+                <ul class="list-unstyled mb-0">
+                    <li><a href="https://www.uniminuto.edu/" class="text-white">Pagina Principal Uniminuto</a></li>
+                    <li><a href="https://github.com/JorgeACastr0/SI-Tutorias-UNIM" class="text-white">Repositorio del Proyecto</a></li>
+                    <li>CONTACTO:</li>
+                    <li>jorge.castro-pa@uniminuto.edu.co </li>
+                    <li>brayhan.otriz@uniminuto.edu.co</li>
+                </ul>
+            </div>           
+        </div>
+    </div>
+
+    <!-- Línea inferior -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2025 TutoSoft
+    </div>
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>

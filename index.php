@@ -170,7 +170,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- Línea inferior -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-        © 2024 Universidad
+        © 2025 TutoSoft
     </div>
 </footer>
 
